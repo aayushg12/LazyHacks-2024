@@ -1,4 +1,5 @@
 let alarmTime = null;
+let alarmTriggered = false; // Add a flag to track if the alarm has already triggered
 let streak = parseInt(localStorage.getItem("streak")) || 0;
 let currency = parseInt(localStorage.getItem("currency")) || 0;
 let highScore = parseInt(localStorage.getItem("highScore")) || 0;
@@ -8,12 +9,18 @@ function displayClock() {
     setInterval(() => {
         const now = new Date();
         document.getElementById("clock").innerText = now.toLocaleTimeString();
-        if (alarmTime && now.toTimeString().slice(0, 5) === alarmTime) triggerAlarm();
+
+        // Check if the alarm should trigger
+        if (alarmTime && now.toTimeString().slice(0, 5) === alarmTime && !alarmTriggered) {
+            triggerAlarm();
+            alarmTriggered = true; // Ensure the alarm triggers only once
+        }
     }, 1000);
 }
 
 function setAlarm() {
     alarmTime = document.getElementById("alarmTime").value;
+    alarmTriggered = false; // Reset the flag when a new alarm is set
     if (alarmTime) alert(`Alarm set for ${alarmTime}`);
 }
 
@@ -27,12 +34,14 @@ function triggerAlarm() {
 const puzzles = [
     { question: "What has keys but can't open locks?", answer: "keyboard" },
     { question: "I speak without a mouth and hear without ears. What am I?", answer: "echo" },
-    { question: "What’s 7 + 8 x 2?", answer: "23" }
+    { question: "What’s 7 + 8 x 2?", answer: "23" },
 ];
 
 function generatePuzzles() {
     const puzzleDiv = document.getElementById("puzzles");
-    puzzleDiv.innerHTML = "";
+    puzzleDiv.innerHTML = ""; // Clear previous puzzle content
+
+    // Randomly select one puzzle
     const puzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
     puzzleDiv.innerHTML = `
         <p>${puzzle.question}</p>
