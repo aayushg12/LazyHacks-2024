@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Alarm & Snake Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Puzzle Alarm & Snake Game</h1>
+        <div id="clock"></div>
+
+        <!-- Alarm Section -->
+        <div class="section">
+            <h2>Set Alarm</h2>
+            <input type="time" id="alarmTime">
+            <button onclick="setAlarm()">Set Alarm</button>
+        </div>
+
+        <!-- Puzzle Section -->
+        <div id="puzzleSection" class="section" style="display: none;">
+            <h2>Solve Puzzles to Stop Alarm</h2>
+            <div id="puzzles"></div>
+            <button onclick="submitPuzzles()">Submit</button>
+        </div>
+
+        <!-- Progress -->
+        <div class="section">
+            <h2>Your Progress</h2>
+            <p>Streak: <span id="streakCount">0</span> days</p>
+            <p>Coins: <span id="currency">0</span> coins</p>
+            <p>High Score: <span id="highScore">0</span></p>
+            <button onclick="startSnakeGame()">Play Snake Game</button>
+        </div>
+
+        <!-- Snake Game Section -->
+        <div id="gameSection" style="display: none;">
+            <h2>Snake Game</h2>
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+            <p id="gameScore">Score: 0</p>
+            <button onclick="reviveSnake()" id="reviveBtn" style="display: none;">Revive (5 Coins)</button>
+        </div>
+    </div>
+
+    <!-- Alarm Sound -->
+    <audio id="alarmSound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
